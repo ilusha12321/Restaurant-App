@@ -1,0 +1,71 @@
+<nav class="navbar navbar-expand-lg bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white" href="/restaurants">
+      Restaurants</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link <%= 'active text-white' if current_page?(restaurants_path) %>" href="/restaurants">Home</a>
+        <% if Current.user && Current.user.role != 'admin' %>
+          <a class="nav-link <%= 'active text-white' if current_page?(profile_edit_path) %>" href="/profile/edit">Profile</a>
+          <a class="nav-link <%= 'active text-white' if current_page?(orders_path) %>" href="/orders">Orders</a>
+        <% end %>
+        <% if Current.user && Current.user.admin? %>
+          <a class="nav-link <%= 'active text-white' if current_page?(categories_path) %>" href="/categories">Menu</a>
+          <a class="nav-link <%= 'active text-white' if current_page?(orders_path) %>" href="/orders">Orders</a>
+          <a class="nav-link <%= 'active text-white' if current_page?(new_menu_path) %>" href="/menu/new">Add Dish</a>
+          <a class="nav-link <%= 'active text-white' if current_page?(new_restaurant_path) %>" href="/restaurants/new">Add Restaurant</a>
+        <% end %>
+        <% if Current.user %>
+          <% if Current.user.role != 'admin' %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle <%= 'enabled' unless current_page?(contact_path) %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Pages </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/contact">Contact</a></li>
+              </ul>
+            </li>
+          <% end %>
+        <% else %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle <%= 'enabled' unless current_page?(contact_path) %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Pages </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/contact">Contact</a></li>
+            </ul>
+          </li>
+        <% end %>
+      </div>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-1">
+        <% if Current.user %>
+          <% if Current.user.role != 'admin' %>
+            <a class="navbar-brand" href="/cart">
+              <img src="https://cdn-icons-png.flaticon.com/512/282/282527.png" alt="Bootstrap" width="35" height="35">
+            </a>
+          <% end %>
+          <li class="nav-item">
+            <%= link_to Current.user.email, edit_password_path, class: "text-white nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= button_to "Logout", logout_path, method: :delete, class: "btn btn-outline-warning" %>
+          </li>
+        <% else %>
+          <a class="navbar-brand" href="/cart">
+            <img src="https://cdn-icons-png.flaticon.com/512/282/282527.png" alt="Bootstrap" width="35" height="35">
+          </a>
+          <li class="nav-item">
+            <%= link_to "Login", sign_in_path, class: "btn btn-outline-warning" %>
+          </li>
+          <br>
+          <li class="nav-item ml-50px">
+            <%= link_to "Sing Up", sign_up_path, class: "btn btn-outline-warning" %>
+          </li>
+          <br>
+        <% end %>
+      </ul>
+
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,40 @@
+<div class="">
+  <div class="row justify-content-center">
+    <div class="">
+      <div class="">
+        <div class=" bg-primary text-white">
+          <h1 class="text-center">Edit Restaurant</h1>
+        </div>
+        <div class="p-3">
+          <%= form_with(model: @restaurant, url: restaurant_path(@restaurant), local: true) do |form| %>
+            <div class="mb-3">
+              <%= form.label :name, class: "form-label" %>
+              <%= form.text_field :name, class: "form-control" %>
+            </div>
+            <div class="mb-3">
+              <%= form.label :category, class: "form-label" %>
+              <%= form.text_field :category, class: "form-control" %>
+            </div>
+            <div class="mb-3">
+              <%= form.label :description, class: "form-label" %>
+              <%= form.text_area :description, class: "form-control" %>
+            </div>
+            <div class="mb-3">
+              <%= form.label :city, class: "form-label" %>
+              <%= form.text_field :city, class: "form-control" %>
+            </div>
+            <div class="mb-3">
+              <%= form.label :address, class: "form-label" %>
+              <%= form.text_field :address, class: "form-control" %>
+            </div>
+            <div class="mb-3">
+              <%= form.label :image, class: "form-label" %>
+              <%= form.file_field :image, class: "form-control", accept: "image/*" %>
+            </div>
+            <%= form.submit "Update Restaurant", class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

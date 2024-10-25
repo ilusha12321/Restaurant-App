@@ -1,0 +1,36 @@
+<div class="">
+  <div class="row justify-content-center">
+    <div class="">
+      <div class="">
+        <div class=" bg-primary text-white">
+          <h2 class="text-center">Create a review for <%= @restaurant.name %></h2>
+        </div>
+        <div class="card-body container p-2">
+          <%= form_with(model: [@restaurant, @review], url: restaurant_reviews_path(@restaurant), method: :post) do |form| %>
+            <% if @review.errors.any? %>
+              <div class="alert alert-danger">
+                <ul>
+                  <% @review.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+            <div class="form-group container col-md-2">
+              <%= form.hidden_field :restaurant_id, value: @restaurant.id %>
+              <%= form.label :rating, "Rating" %>
+              <%= form.select :rating, (1..5), { include_blank: true }, class: "form-control" %>
+            </div>
+            <div class="form-group col-md-8 container">
+              <%= form.label :review_text, "Response" %>
+              <%= form.text_area :review_text, class: "form-control", rows: 5 %>
+            </div>
+            <div class="text-center mt-2">
+              <%= form.submit "Create a review", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

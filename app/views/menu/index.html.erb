@@ -1,0 +1,47 @@
+<div class="">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div class="bg-primary text-white p-3 mb-3">
+        <h1 class="text-center">Menu</h1>
+      </div>
+      <div class="row menu-items align-items-stretch p-3">
+        <% @menu_items.each do |item| %>
+          <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+            <div class="menu-item shadow d-flex flex-column h-100">
+              <div class="menu-item-image shadow">
+                <% if Current.user&.admin? %>
+                  <%= link_to edit_menu_path(item), method: :get do %>
+                    <%= image_tag("data:image/png;base64,#{item.image_base64}", alt: "Menu Item Image", class: "img-fluid rounded-top") if item.image_base64.present? %>
+                  <% end %>
+                <% else %>
+                  <%= image_tag("data:image/jpg;base64,#{item.image_base64}", alt: "Menu Item Image", class: "img-fluid rounded-top") if item.image_base64.present? %>
+                <% end %>
+              </div>
+              <div class="card-body d-flex flex-column justify-content-between">
+                <div>
+                  <% if Current.user&.admin? %>
+                    <%= link_to edit_menu_path(item), class: "nav-link", method: :get do %>
+                      <h2><%= item.item_name %></h2>
+                    <% end %>
+                  <% else %>
+                    <h2><%= item.item_name %></h2>
+                  <% end %>
+                  <p><%= item.description %></p>
+                </div>
+                <div>
+                  <p class="mt-2"><strong>Price:</strong> <%= item.price %><strong>$</strong></p>
+                  <% unless Current.user&.admin? %>
+                    <%= button_to 'Add to the cart', add_to_cart_path(item_id: item.id), class: "btn btn-outline-success", remote: true, method: :post %>
+                  <% end %>
+                  <% if Current.user&.admin? %>
+                    <%= button_to 'Delete', menu_path(item), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

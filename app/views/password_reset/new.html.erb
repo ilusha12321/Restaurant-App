@@ -1,0 +1,24 @@
+<div class="">
+  <div class="row justify-content-center">
+    <div class="">
+      <div class="">
+        <div class=" bg-primary text-white">
+          <h1 class="text-center">Forgot your password?</h1>
+        </div>
+        <div class="col-md-4 container">
+          <%= form_with url: password_reset_path do |form| %>
+            <div class="form-group mb-2">
+              <%= form.label :email, class: "font-weight-bold" %>
+              <%= form.text_field :email, class: "form-control", placeholder: "Enter your email" %>
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+
+            <div class="card">
+              <%= form.submit "Reset Password", class: "btn btn-primary btn-block" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
